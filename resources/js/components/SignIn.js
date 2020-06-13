@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { 
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    Redirect,
+    useHistory,
+    useLocation
+ } from "react-router-dom";
 
-class Example extends React.Component {
+class SignIn extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            auth: false
         };
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
@@ -31,7 +41,8 @@ class Example extends React.Component {
                 password: this.state.password
             }).then(response => {
                 console.log(`Success login`);
-                    window.location.replace('http://localhost:8000/home');
+                this.setState({auth: true});
+                window.location.replace('http://localhost:8000/dashboard');
             }).catch(res => {
                 console.log(`Failed ${res}`);
             });
@@ -76,8 +87,4 @@ class Example extends React.Component {
     }
 }
 
-export default Example;
-
-if (document.getElementById('login')) {
-    ReactDOM.render(<Example />, document.getElementById('login'));
-}
+export default SignIn;
