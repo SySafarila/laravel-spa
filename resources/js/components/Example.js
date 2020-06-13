@@ -47,17 +47,27 @@ class Example extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
-                            <form onSubmit={this.handleSubmit}>
-                                <label>
-                                    email:
-                                    <input type="text" value={this.state.email} onChange={this.handleEmail} />
-                                </label>
-                                <label>
-                                    password:
-                                    <input type="text" value={this.state.password} onChange={this.handlePassword} />
-                                </label>
-                                <input type="submit" value="Submit" />
-                            </form>
+                            <div className="card-body">
+                                <form onSubmit={this.handleSubmit}>
+                                    <div className="form-group row">
+                                        <label className="col-md-4 col-form-label text-md-right">Email</label>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" value={this.state.email} onChange={this.handleEmail} />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row">
+                                        <label className="col-md-4 col-form-label text-md-right">Password</label>
+                                        <div className="col-md-6">
+                                            <input type="text" className="form-control" value={this.state.password} onChange={this.handlePassword} />
+                                        </div>
+                                    </div>
+                                    <div className="form-group row mb-0">
+                                        <div className="col-md-8 offset-md-4">
+                                            <button className="btn btn-success">Login</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
