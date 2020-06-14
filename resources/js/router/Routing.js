@@ -39,6 +39,7 @@ import axios from 'axios';
         <div>
             <p>A looks through all its children elements and renders the first one whose path matches the current URL. Use a any time you have multiple routes, but you want only one of them to render at a time</p>
             <Link to="/sign-in" className="text-success font-weight-bold">Sign in</Link>
+            <Link to="/dashboard" className="text-success font-weight-bold">Dashboard</Link>
         </div>
      );
  }

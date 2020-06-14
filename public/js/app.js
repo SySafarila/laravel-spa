@@ -70054,7 +70054,10 @@ function Home() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "A looks through all its children elements and renders the first one whose path matches the current URL. Use a any time you have multiple routes, but you want only one of them to render at a time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     to: "/sign-in",
     className: "text-success font-weight-bold"
-  }, "Sign in"));
+  }, "Sign in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    to: "/dashboard",
+    className: "text-success font-weight-bold"
+  }, "Dashboard"));
 }
 
 function NotMatch() {
