@@ -34,14 +34,25 @@ import axios from 'axios';
      }
  }
 
- function Home() {
-     return(
-        <div>
-            <p>A looks through all its children elements and renders the first one whose path matches the current URL. Use a any time you have multiple routes, but you want only one of them to render at a time</p>
-            <Link to="/sign-in" className="text-success font-weight-bold">Sign in</Link>
-            <Link to="/dashboard" className="text-success font-weight-bold">Dashboard</Link>
-        </div>
-     );
+ class Home extends React.Component {
+     componentDidMount() {
+         axios.get('http://localhost:8000/api/auth-check')
+         .then(res => {
+             console.log(res.data);
+         })
+         .catch(res => {
+             console.log(res.data);
+         });
+     }
+     render() {
+        return(
+            <div>
+                <p>A looks through all its children elements and renders the first one whose path matches the current URL. Use a any time you have multiple routes, but you want only one of them to render at a time</p>
+                <Link to="/sign-in" className="text-success font-weight-bold">Sign in</Link>
+                <Link to="/dashboard" className="text-success font-weight-bold">Dashboard</Link>
+            </div>
+         );
+     }
  }
 
  function NotMatch() {
