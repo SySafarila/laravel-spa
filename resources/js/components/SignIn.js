@@ -17,6 +17,7 @@ class SignIn extends React.Component {
         this.state = {
             email: '',
             password: '',
+            loginBtn: 'Login',
             auth: false
         };
         this.handleEmail = this.handleEmail.bind(this);
@@ -33,6 +34,9 @@ class SignIn extends React.Component {
     }
 
     handleSubmit(event) {
+        this.setState({
+            loginBtn: <div className="spinner-border text-light" role="status"><span className="sr-only">Loading...</span></div>
+        });
         axios.defaults.withCredentials = true;
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
@@ -41,10 +45,12 @@ class SignIn extends React.Component {
                 password: this.state.password
             }).then(response => {
                 console.log(`Success login`);
-                this.setState({auth: true});
                 window.location.replace('http://localhost:8000/dashboard');
             }).catch(res => {
                 console.log(`Failed ${res}`);
+                this.setState({
+                    loginBtn: 'Login'
+                });
             });
             
         });
@@ -52,38 +58,72 @@ class SignIn extends React.Component {
         event.preventDefault();
     }
 
+    componentDidMount() {
+        axios.get('http://localhost:8000/api/auth-check')
+        .then(res => {
+            console.log(res.data);
+            if (res.data === 1) {
+                this.setState({
+                    auth: true
+                });
+            }
+        })
+        .catch(res => {
+            console.log(res.data);
+            // this.setState({
+            //     auth: res.data
+            // });
+        });
+    }
+
     render(){
-        return(
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="card">
-                            <div className="card-body">
-                                <form onSubmit={this.handleSubmit}>
-                                    <div className="form-group row">
-                                        <label className="col-md-4 col-form-label text-md-right">Email</label>
-                                        <div className="col-md-6">
-                                            <input type="text" className="form-control" value={this.state.email} onChange={this.handleEmail} />
+        if (this.state.auth === false) {
+            return(
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-md-8">
+                            <div className="card">
+                                <div className="card-body">
+                                    <form onSubmit={this.handleSubmit}>
+                                        <div className="form-group row">
+                                            <label className="col-md-4 col-form-label text-md-right">Email</label>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" value={this.state.email} onChange={this.handleEmail} />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="form-group row">
-                                        <label className="col-md-4 col-form-label text-md-right">Password</label>
-                                        <div className="col-md-6">
-                                            <input type="text" className="form-control" value={this.state.password} onChange={this.handlePassword} />
+                                        <div className="form-group row">
+                                            <label className="col-md-4 col-form-label text-md-right">Password</label>
+                                            <div className="col-md-6">
+                                                <input type="text" className="form-control" value={this.state.password} onChange={this.handlePassword} />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="form-group row mb-0">
-                                        <div className="col-md-8 offset-md-4">
-                                            <button className="btn btn-success">Login</button>
+                                        <div className="form-group row mb-0">
+                                            <div className="col-md-8 offset-md-4">
+                                                <button className="btn btn-success">{this.state.loginBtn}</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return(
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-md-8">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h4>Youre successfully login</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 
