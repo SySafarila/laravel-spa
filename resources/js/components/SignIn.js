@@ -17,7 +17,7 @@ class SignIn extends React.Component {
         this.state = {
             email: '',
             password: '',
-            auth: false
+            loginBtn: 'Login'
         };
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
@@ -33,6 +33,9 @@ class SignIn extends React.Component {
     }
 
     handleSubmit(event) {
+        this.setState({
+            loginBtn: <div className="spinner-border text-light" role="status"><span className="sr-only">Loading...</span></div>
+        });
         axios.defaults.withCredentials = true;
         axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
             // console.log(response);
@@ -41,10 +44,12 @@ class SignIn extends React.Component {
                 password: this.state.password
             }).then(response => {
                 console.log(`Success login`);
-                this.setState({auth: true});
                 window.location.replace('http://localhost:8000/dashboard');
             }).catch(res => {
                 console.log(`Failed ${res}`);
+                this.setState({
+                    loginBtn: 'Login'
+                });
             });
             
         });
@@ -74,7 +79,7 @@ class SignIn extends React.Component {
                                     </div>
                                     <div className="form-group row mb-0">
                                         <div className="col-md-8 offset-md-4">
-                                            <button className="btn btn-success">Login</button>
+                                            <button className="btn btn-success">{this.state.loginBtn}</button>
                                         </div>
                                     </div>
                                 </form>
