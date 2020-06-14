@@ -111,8 +111,16 @@ class SignIn extends React.Component {
             );
         } else {
             return(
-                <div>
-                    Youre successfully loggin, <Link to="/dashboard">Go to dashboard</Link>
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-md-8">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h4>Youre successfully login</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             );
         }
